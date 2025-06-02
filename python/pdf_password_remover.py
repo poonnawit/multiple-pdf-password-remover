@@ -34,13 +34,13 @@ for subdir, dirs, files in os.walk(rootdir):
             try: 
                 pdf = pikepdf.open(filepath)
                 mylogs.info(file + " isn't lock with a password")
-            except pikepdf._qpdf.PasswordError:
+            except pikepdf.exceptions.PasswordError:
                 #If locked, try to unlock with password line 7
                 try:
                     pdf = pikepdf.open(filepath, password=pdf_password, allow_overwriting_input=True)
                     pdf.save(filepath)
                     mylogs.info ("Successfully remove password on " + file)
-                except pikepdf._qpdf.PasswordError:
+                except pikepdf.exceptions.PasswordError:
                     mylogs.error ("Bad password for " + file)
                 except: #default
                     mylogs.error ("Failed to remove password on " + file)
